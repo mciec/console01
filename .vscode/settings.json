@@ -1,0 +1,7 @@
+{
+    "sshUser": "pi",
+    "sshEndpoint": "rpi4-1.local",
+    "projectName": "console01"
+}
+
+    

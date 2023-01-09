@@ -1,0 +1,75 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            // Use IntelliSense to find out which attributes exist for C# debugging
+            // Use hover for the description of the existing attributes
+            // For further information visit https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md
+            "name": ".NET Core Launch (web)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            // If you have changed target frameworks, make sure to update the program path.
+            "program": "${workspaceFolder}/bin/Debug/net7.0/rpi-led-control.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/Views"
+            }
+        },
+        {
+            "name": ".NET Core Attach",
+            "type": "coreclr",
+            "request": "attach"
+        },
+        {
+            "name": ".NET RPi Launch",
+            "type": "coreclr",
+            "request": "launch",
+            "program": "dotnet",
+            "args": ["/home/pi/Documents/git/${config:projectName}/${config:projectName}.dll"],
+            "cwd": "/home/pi/Documents/git/${config:projectName}",
+            "stopAtEntry": true,
+            "console": "internalConsole",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "ssh",
+                "pipeArgs": [
+                    "${config:sshUser}@${config:sshEndpoint}"
+                ],
+                "debuggerPath": "/home/pi/vsdbg/vsdbg",
+                "quoteArgs": true,
+            }
+        },
+        {
+            "name": ".NET RPi Attach",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickRemoteProcess}",
+            "pipeTransport": {
+                "pipeCwd": "${workspaceFolder}",
+                "pipeProgram": "ssh",
+                "pipeArgs": [
+                    "pi@rpi4-1.local"
+                ],
+                "debuggerPath": "/home/pi/vsdbg/vsdbg",
+                "quoteArgs": true,
+            },
+            "justMyCode": false,
+            "symbolOptions": {
+                "searchPaths": ["/home/pi/Documents/git/${config:projectName}"],
+                "searchMicrosoftSymbolServer": false
+            },
+            "requireExactSource": false,
+        }
+    ]
+}
